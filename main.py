@@ -1,5 +1,7 @@
 import math
 import pygame
+import physics
+from config import cfg
 
 pygame.init()
 
@@ -7,37 +9,41 @@ win = pygame.display.set_mode((600, 600))
 pygame.display.set_caption("First Game")
 
 # Initialisation parameters
-t = 0               # Start time
-xInit = 50          # X Start point
-yInit = 530         # Y Start point
+t = 0                   # Start time
+x = cfg.ENV.ORIGINX - cfg.INIT.XPOS   # X Start point
+y = cfg.ENV.ORIGINY - (cfg.INIT.YPOS + cfg.DRONE.RADIUS)   # Y Start point
+velx = cfg.INIT.VELOCITYX
+vely = cfg.INIT.VELOCITYY
 
 run = True
 while run:
-    t += 0.1
-    pygame.time.delay(100)
+    t += cfg.SIM.TIMESTEP
+    pygame.time.delay(int(cfg.SIM.TIMESTEP * 1000))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-    if t < 1:
-        velx = 0
-        vely = -10
-    elif t < 5:
-        velx = 10
-        vely = 0
-    elif t < 6:
-        vely = 10
-        velx = 0
 
-    if y > 530:
+    if y > cfg.ENV.GROUND:
         vely = 0
     keys = pygame.key.get_pressed()
-    x += velx
-    y += vely
+    
+    # Resolve Forces
+    vxd, vyd = physics.calculateDrag
+    vxg, vyg = physics.calculateGravity
+    vxt, vyt = physics.calculateThrust
+    
+    x += cfg.SIM.TIMESTEP * (vxd + vxg + vxt)
+    y += cfg.SIM.TIMESTEP * (vyd + vyg + vyt)
 
     win.fill((0,0,0))
-    pygame.draw.rect(win, (100, 100, 100), (x, y, width, height))
+    
+    # Draw ground
+    pygame.draw.rect(win, (50,155,50), (
+        0, cfg.ENV.GROUND, cfg.SIM.WINDOWX, cfg.SIM.WINDOWY - cfg.ENV.GROUND))
+    
+    
+    pygame.draw.circle(win, (100, 100, 100), (x, y), cfg.DRONE.RADIUS)
     pygame.draw.rect(win, (255,255,255), (295, 295, 10, 10))
-    pygame.draw.rect(win, (50,155,50), (0, 560, 600, 20))
     pygame.display.update()
 
 pygame.quit()

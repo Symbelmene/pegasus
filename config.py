@@ -7,24 +7,28 @@ __C                           = edict()
 cfg                           = __C
 
 # Simulator Options
+__C.SIM                     = edict()
 __C.SIM.WINDOWX             = 600
 __C.SIM.WINDOWY             = 600
+__C.SIM.TIMESTEP            = 0.1
 
 # Environment Options
 __C.ENV                     = edict()
-__C.ENV.GRAVITY             = "./NoteDir"
-__C.ENV.AIRDENSITY          = "./Features"
+__C.ENV.GRAVITY             = 9.81
+__C.ENV.AIRDENSITY          = 1.225
 __C.ENV.ORIGINX             = 300
 __C.ENV.ORIGINY             = 590
+__C.ENV.GROUND              = 590
 
 # Drone Options
 __C.DRONE                   = edict()
 __C.DRONE.MASS              = 2             # kg
 __C.DRONE.THRUST            = 20            # kN
-__C.DRONE.RADIUS            = 0.1           # m
+__C.DRONE.RADIUS            = 20           # m
 
 # Initialisation Options
 __C.INIT                    = edict()
 __C.INIT.XPOS               = 0
 __C.INIT.YPOS               = 0
-__C.INIT.VELOCITY           = 0
+__C.INIT.VELOCITYX          = 0
+__C.INIT.VELOCITYY          = 0
