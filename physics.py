@@ -21,16 +21,24 @@ def calculateGravity(debug=False):
         print('Gravity Force Y = {}'.format(round(fy, 2)))
     return fx, fy
 
-def calculateThrust(px, py, debug=False):
-    fx = cfg.DRONE.THRUST * px
-    fy = cfg.DRONE.THRUST * py
-    if debug:
-        print('Thrust Force X = {}'.format(round(fx, 2)))
-        print('Thrust Force Y = {}'.format(round(fy, 2)))
-    return fx, fy
-
-def resolveThrust(x, y, xTarget, yTarget):
-    tx = 2 * (xTarget - x) / cfg.SIM.WINDOWX
-    ty = 2 * (yTarget - y) / cfg.SIM.WINDOWY
+def resolveThrust(x, y, xTarget, yTarget, vx, vy, c, k):
+    # Distance to target
+    dx = xTarget - x
+    dy = yTarget - y
+    # Current Speed Differential
+    dvx = 0 - vx
+    dvy = 0 - vy
+    tx = dx*k + dvx*c
+    ty = max(-50, dy*k + dvy*c)
+    # Apply lateral thrust caps
+    if tx > 30:
+        tx = 30
+    elif tx < -30:
+        tx = -30
+    
     ty = 0 if ty > 0 else ty
     return tx, ty
+
+def proximitySensor(x,y, redZones):
+    # redZones = List of polygons
+    t = 1

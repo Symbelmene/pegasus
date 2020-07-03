@@ -8,7 +8,7 @@ cfg                           = __C
 
 # Simulator Options
 __C.SIM                     = edict()
-__C.SIM.WINDOWX             = 600
+__C.SIM.WINDOWX             = 1000
 __C.SIM.WINDOWY             = 600
 __C.SIM.TIMESTEP            = 0.025
 __C.SIM.SCALE               = 100          # Pixels / m
@@ -29,10 +29,10 @@ __C.DRONE.RADIUS            = 20           # m
 
 # Initialisation Options
 __C.INIT                    = edict()
-__C.INIT.XPOS               = 0
-__C.INIT.YPOS               = 450
-__C.INIT.VELOCITYX          = 20
-__C.INIT.VELOCITYY          = -10
+__C.INIT.XPOS               = -200
+__C.INIT.YPOS               = 0
+__C.INIT.VELOCITYX          = 0
+__C.INIT.VELOCITYY          = 0
 
 # Target Options
 __C.TARGET                  = edict()
