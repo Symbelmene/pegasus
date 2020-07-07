@@ -65,12 +65,12 @@ while run:
     
     dfPath.loc[idx] = [t, x, y, vxTot, vyTot, fxt, fyt]
     keys = pygame.key.get_pressed()
-
     win.fill((0,0,0))
     
     # Draw ground
     pygame.draw.rect(win, (50,155,50), (
         0, cfg.ENV.GROUND, cfg.SIM.WINDOWX, cfg.SIM.WINDOWY - cfg.ENV.GROUND))
+    
     # Draw thrusters
     if fyt < 0:
         pygame.draw.polygon(win, (240, 150, 0), 
@@ -100,8 +100,6 @@ while run:
     if posFlag and velFlag:
         xTarget = random.randint(50, cfg.SIM.WINDOWX - 50)
         yTarget = random.randint(50, cfg.SIM.WINDOWY - 50)
-    
-    
     
     idx += 1
 

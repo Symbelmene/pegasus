@@ -35,7 +35,7 @@ def resolveThrust(x, y, xTarget, yTarget, vx, vy, c, k):
         tx = 30
     elif tx < -30:
         tx = -30
-    
+        
     ty = 0 if ty > 0 else ty
     return tx, ty
 
